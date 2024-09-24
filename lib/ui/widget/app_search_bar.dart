@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,10 +6,9 @@ import 'package:get/get.dart';
 import '../../generated/assets.dart';
 import '../utils/app_color.dart';
 
-
 class AppAnimationSearchBar extends StatefulWidget {
   const AppAnimationSearchBar({
-    Key? key,
+    super.key,
     this.searchBarWidth,
     this.searchBarHeight,
     this.previousScreen,
@@ -33,8 +31,9 @@ class AppAnimationSearchBar extends StatefulWidget {
     this.backIcon,
     this.duration,
     this.backgroundColor,
-    this.actions = const [], this.onSearchFocused,
-  }) : super(key: key);
+    this.actions = const [],
+    this.onSearchFocused,
+  });
 
   ///
   final double? searchBarWidth;
@@ -78,12 +77,12 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
 
   @override
   Widget build(BuildContext context) {
-    final _duration = widget.duration ?? const Duration(milliseconds: 500);
-    final _searchFieldHeight = widget.searchFieldHeight ?? 40;
-    final _hPadding =
+    final duration = widget.duration ?? const Duration(milliseconds: 500);
+    final searchFieldHeight = widget.searchFieldHeight ?? 40;
+    final hPadding =
         widget.horizontalPadding != null ? widget.horizontalPadding! * 2 : 0;
-    final _searchBarWidth =
-        widget.searchBarWidth ?? MediaQuery.of(context).size.width - _hPadding;
+    final searchBarWidth =
+        widget.searchBarWidth ?? MediaQuery.of(context).size.width - hPadding;
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: widget.horizontalPadding ?? 0,
@@ -92,8 +91,8 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
         color: widget.backgroundColor ?? Colors.white,
         child: SafeArea(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 5),
-            width: _searchBarWidth,
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            width: searchBarWidth,
             height: widget.searchBarHeight ?? 60,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -105,7 +104,7 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                   curve: Curves.easeInOutCirc,
                   width: 35,
                   height: 35,
-                  duration: _duration,
+                  duration: duration,
                   child: KBackButton(
                     icon: widget.backIcon,
                     iconColor: widget.backIconColor,
@@ -116,12 +115,12 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                 // /// text
                 AnimatedOpacity(
                   opacity: _isSearching ? 0 : 1,
-                  duration: _duration,
+                  duration: duration,
                   child: AnimatedContainer(
                     margin:
                         _isSearching ? null : const EdgeInsets.only(left: 10),
                     curve: Curves.easeInOutCirc,
-                    duration: _duration,
+                    duration: duration,
                     alignment: Alignment.center,
                     width: _isSearching ? 0 : null,
                     child: Text(
@@ -174,11 +173,11 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                     curve: Curves.easeInOutCirc,
                     duration: 300.milliseconds,
                     width: _isSearching
-                        ? _searchBarWidth -
+                        ? searchBarWidth -
                             46 -
                             (widget.horizontalPadding ?? 0 * 2)
                         : 0,
-                    height: _isSearching ? _searchFieldHeight : 20,
+                    height: _isSearching ? searchFieldHeight : 20,
                     margin: EdgeInsets.only(
                       left: _isSearching ? 5 : 0,
                       right: _isSearching ? 10 : 0,
@@ -193,13 +192,14 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                               color: Colors.black, fontWeight: FontWeight.w300),
                       decoration: InputDecoration(
                         prefixIcon: Padding(
-                          padding: EdgeInsets.only(left: 10, right: 8),
+                          padding: const EdgeInsets.only(left: 10, right: 8),
                           child: SvgPicture.asset(
                             Assets.iconsIcSearch,
-                            color: AppColor.basic50,
+                            colorFilter: const ColorFilter.mode(
+                                AppColor.basic50, BlendMode.srcIn),
                           ),
                         ),
-                        prefixIconConstraints: BoxConstraints(
+                        prefixIconConstraints: const BoxConstraints(
                           maxHeight: 30,
                           maxWidth: 40,
                         ),
@@ -212,12 +212,12 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                               FocusManager.instance.primaryFocus?.unfocus();
                             });
                           },
-                          child: Padding(
+                          child: const Padding(
                             padding: EdgeInsets.only(left: 8, right: 10),
                             child: Icon(Icons.clear),
                           ),
                         ),
-                        suffixIconConstraints: BoxConstraints(
+                        suffixIconConstraints: const BoxConstraints(
                           maxHeight: 30,
                           maxWidth: 40,
                         ),
@@ -242,14 +242,13 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                   ),
                 ),
 
-
                 ///  search button
                 AnimatedOpacity(
                   opacity: _isSearching ? 0 : 1,
-                  duration: _duration,
+                  duration: duration,
                   child: AnimatedContainer(
                     curve: Curves.easeInOutCirc,
-                    duration: _duration,
+                    duration: duration,
                     width: _isSearching ? 0 : null,
                     height: _isSearching ? 0 : null,
                     child: Row(
@@ -259,11 +258,13 @@ class _AppAnimationSearchBarState extends State<AppAnimationSearchBar> {
                         FittedBox(
                           child: KCustomButton(
                             widget: Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: SvgPicture.asset(
-                                  Assets.iconsIcSearch,
-                                  color: widget.searchIconColor
-                                )),
+                              padding: const EdgeInsets.all(5),
+                              child: SvgPicture.asset(
+                                Assets.iconsIcSearch,
+                                colorFilter: ColorFilter.mode(
+                                    widget.searchIconColor!, BlendMode.srcIn),
+                              ),
+                            ),
                             onPressed: () => setState(
                               () {
                                 _isSearching = true;
@@ -293,12 +294,11 @@ class KCustomButton extends StatelessWidget {
   final double? radius;
 
   const KCustomButton(
-      {Key? key,
+      {super.key,
       required this.widget,
       required this.onPressed,
       this.radius,
-      this.onLongPress})
-      : super(key: key);
+      this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
@@ -310,12 +310,12 @@ class KCustomButton extends StatelessWidget {
             child: InkWell(
                 splashColor: Theme.of(context).primaryColor.withOpacity(.2),
                 highlightColor: Theme.of(context).primaryColor.withOpacity(.05),
+                onTap: onPressed,
+                onLongPress: onLongPress,
                 child: Padding(
                     padding:
                         const EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-                    child: widget),
-                onTap: onPressed,
-                onLongPress: onLongPress)));
+                    child: widget))));
   }
 }
 
@@ -325,11 +325,10 @@ class KBackButton extends StatelessWidget {
   final IconData? icon;
 
   const KBackButton(
-      {Key? key,
+      {super.key,
       required this.previousScreen,
       required this.iconColor,
-      required this.icon})
-      : super(key: key);
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {

@@ -200,7 +200,8 @@ class _AppTertiaryButtonState extends State<AppTertiaryButton> {
                       if (widget.prependIcon != null) ...{
                         SvgPicture.asset(
                           widget.prependIcon!,
-                          color: AppColor.primary25,
+                          colorFilter: const ColorFilter.mode(
+                              AppColor.primary25, BlendMode.srcIn),
                         ),
                         const SizedBox(
                           width: 6,
@@ -221,7 +222,8 @@ class _AppTertiaryButtonState extends State<AppTertiaryButton> {
                         ),
                         SvgPicture.asset(
                           widget.appendIcon!,
-                          color: AppColor.primary25,
+                           colorFilter: const ColorFilter.mode(
+                              AppColor.primary25, BlendMode.srcIn),
                         ),
                       },
                     ],

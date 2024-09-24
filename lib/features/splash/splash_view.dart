@@ -23,8 +23,7 @@ class SplashPage extends StatelessWidget {
       if (email != null) {
         await Get.offNamed(MainPage.route);
       } else {
-        await Get.offNamed(MainPage.route);
-        // await Get.offNamed(SignInPage.route);
+        await Get.offNamed(SignInPage.route);
       }
     });
     return const Scaffold(

@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:get/get.dart';
@@ -7,14 +6,11 @@ import 'core/config/initial_binding.dart';
 import 'core/config/routes.dart';
 import 'core/manager/app_pref_storage.dart';
 import 'features/splash/splash_view.dart';
-import 'firebase_options.dart';
 
+//
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
   Get.put(StorageManager(), permanent: true);
   runApp(const MyApp());
 }

@@ -75,7 +75,7 @@ class _AppTextFieldState extends State<AppTextField> {
               const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
           prefixIcon: widget.icon == null
               ? null
-              : Container(
+              : SizedBox(
                   width: 25,
                   height: 25,
                   child: Center(
